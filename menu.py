@@ -165,45 +165,63 @@ while place_order:
         # 5. Check the customer's input
         if keep_ordering.lower()=="y":
             # Keep ordering
-            place_order= True
+            place_order = True
+            break
         elif keep_ordering.lower()=="n":
-            place_order=False
-                # Exit the keep ordering question loop
-    break
-                # Complete the order
+            place_order = False
+            # Exit the keep ordering question loop
+                    # Complete the order
+            customer_name = input("Please enter your name?")
+            if len(customer_name)==0:
+                customer_name = "Mysterious Customer" 
+                    # Since the customer decided to stop ordering, thank them for
+                    # their order
+            print(f"Thank you {customer_name} for your order")
+                    # Exit the keep ordering question loop
+            break        
+        else:
+            # Tell the customer to try again
+            print("Invalid entery, please try again")
+            continue
 
-                # Since the customer decided to stop ordering, thank them for
-                # their order
-
-                # Exit the keep ordering question loop
-    break
-
-                # Tell the customer to try again
-
+    continue
 
 # Print out the customer's order
 print("This is what we are preparing for you.\n")
 
 # Uncomment the following line to check the structure of the order
-#print(order)
+#print(customer_order) I did uncomment to check but removed it for the 
+# final product
 
 print("Item name                 | Price  | Quantity")
 print("--------------------------|--------|----------")
 
+order_total = 0.00
 # 6. Loop through the items in the customer's order
-
+for order_item in customer_order:
     # 7. Store the dictionary items as variables
-
+    item_name = order_item["Item name"]
+    item_price = str(order_item["Price"])
+    item_quantity = str(order_item["Quantity"])
 
     # 8. Calculate the number of spaces for formatted printing
-
+    num_item_name_spaces = 26 - len(item_name)
+    num_item_price_spaces = 6 - len(item_price)
+    num_item_quantity_spaces = 9 - len(item_quantity)
+    
 
     # 9. Create space strings
-
+    item_name_spaces = " " * num_item_name_spaces
+    item_price_spaces = " " * num_item_price_spaces
+    item_quantity_spaces = " " * num_item_quantity_spaces
 
     # 10. Print the item name, price, and quantity
+    print(f"{item_name}{item_name_spaces}| ${item_price}{item_price_spaces}| {item_quantity}{item_quantity_spaces} ")
 
-
+print("--------------------------|--------|----------")   
 # 11. Calculate the cost of the order using list comprehension
 # Multiply the price by quantity for each item in the order list, then sum()
 # and print the prices.
+
+order_totals = [(c["Price"] * c["Quantity"]) for c in customer_order]
+print (f"{customer_name} order Total is {sum(order_totals):2f}")
